@@ -103,6 +103,17 @@ function update(matrix0, cols, rows) {
     theMatrix.push(matrix0);
 }
 
+function drawTime(){
+    let time = theMatrix.length - 1
+    console.log(time)
+    stroke(255);
+    strokeWeight(16);
+    textSize((cols/2) / (cols/40));
+    text(time, 20, 40);
+    fill(100,100,100);
+    strokeWeight(2);
+}
+
 function addCell(matrix0) {
     matrix0[Math.floor(mouseX/pixelSize)][Math.floor(mouseY/pixelSize)] = 1;
     matrix0[Math.floor(mouseX/pixelSize)][Math.floor(mouseY/pixelSize)] = 1;
@@ -130,6 +141,7 @@ function mouseReleased() {
 
 function keyPressed() {
 
+    // E 
     if (keyCode === 69 || keyCode === RIGHT_ARROW) {
         drawOnce = true;
         timeDirection = "forward";
@@ -138,10 +150,12 @@ function keyPressed() {
         forwardTime = new Date().getTime();
     }
 
-    if (keyCode === 32 || keyCode === 90) {
+    // Z 
+    if (keyCode === 90) {
         pause = !(pause);
     }
 
+    // A 
     if (keyCode === 65 || keyCode === LEFT_ARROW) {
         drawOnce = true;
         timeDirection = "backward";
@@ -150,10 +164,11 @@ function keyPressed() {
         forwardTime = new Date().getTime();
     }
 
+    // Q
     if (keyCode === 81) {
         theMatrix[theMatrix.length - 1] = makeMatrix(cols, rows);
-        drawOnce = true;
-        redraw();
+        drawRect(theMatrix[theMatrix.length - 1], cols, rows);
+        pause = true;
     }
 }
 
@@ -193,6 +208,7 @@ function setup() {
 }
 
 function draw() {
+
     console.log(theMatrix.length)
     if (timeDirection === "forward") {
         if (!pause || drawOnce) {
@@ -221,4 +237,5 @@ function draw() {
         } 
     }
     }
+    drawTime();
 }
